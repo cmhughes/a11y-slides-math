@@ -1,0 +1,14 @@
+# 
+# PURPOSE:
+#
+#   keep *github actions* files up to date
+#
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "06:00"
+      timezone: "Europe/London"

@@ -2,7 +2,7 @@
 <!--
 #
 # a11y-slides-math template.html
-# V0.1, 2024-11-14
+# V0.2, 2024-11-14
 #
 -->
 <html>
@@ -46,8 +46,8 @@
     </div>
   </div>
   </div>
-<div class="nav-outer">
-  <div class="nav-inner">
+<div id="nav-outer">
+  <div id="nav-inner">
     <p><a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a> <span id="slide-status">slide</span> <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a></p>
   </div>
 </div>
@@ -123,13 +123,16 @@
 
   // initialise the slides visibility, based on sessionStorage
   function initiateSlides(){
-     if (sessionStorage.length < 1 ) {
-        showSlides(slideIndex);
-     }
+     sessionStorage.setItem("all-slides-visible", 0);
+
+     // show the first slide
+     showSlides(0);
+
      // loop through the slides
      for (let i = 0; i < slides.length; i++) {
        const currentslide = "slide"+i
        slides[i].id = currentslide;
+
        // check for session storage 
        if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0){
      	showSlides(i);
@@ -199,13 +202,71 @@
        }
        else if (e.keyCode == 37) {
           // left arrow
+	  // check for 'all-slides-visible' mode, and adjust as necessary
+     	  if (sessionStorage.getItem("all-slides-visible")>0){
+  	    toggleAllSlides();
+	  }
           prevSlide();
        }
        else if (e.keyCode == 39) {
           // right arrow
+	  // check for 'all-slides-visible' mode, and adjust as necessary
+     	  if (sessionStorage.getItem("all-slides-visible")>0){
+  	    toggleAllSlides();
+	  }
   	  nextSlide();
        }
+       else if ( e.shiftKey && e.keyCode == 80 ) {
+	  // SHIFT+p
+  	  toggleAllSlides();
+       }
+   }
    
+   // toggle all slides for printing (or other reasons)
+   function toggleAllSlides(){
+     let slidePosition;
+     let slideBorder;
+     let slideDisplay;
+
+     // toggle back to individual slide
+     if (sessionStorage.getItem("all-slides-visible")>0){
+     	sessionStorage.setItem("all-slides-visible", 0);
+	slidePosition = "absolute";
+	slideBorder = "none";
+	slideDisplay = "none";
+
+        // toggle nav
+        document.getElementById("nav-outer").style.display = "block";
+        document.getElementById("slideshow-container").ariaLabel = null;
+     } else {
+        // toggle to all slides
+     	sessionStorage.setItem("all-slides-visible", 1);
+	slidePosition = "static";
+	slideBorder = "solid";
+	slideDisplay = "block";
+
+        // toggle nav
+        document.getElementById("nav-outer").style.display = "none";
+        document.getElementById("slideshow-container").ariaLabel = "All slides shown, useful for printing. Press SHIFT+P or LEFT or RIGHT to go individual slide";
+     }
+
+     // loop through slides, toggle CSS for printing/not printing
+     for (i = 0; i < slides.length; i++) {
+       slides[i].style.position = slidePosition;
+       slides[i].style.borderStyle = slideBorder;
+       slides[i].style.display = slideDisplay;
+     }
+
+     // finally, possibly toggle active slide back on
+     if (sessionStorage.getItem("all-slides-visible") <1){
+        for (i = 0; i < slides.length; i++) {
+          const currentslide = "slide"+i;
+          // toggle individual slide visibility back
+          if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0 ){
+        	showSlides(i);
+          }
+        }
+     }
    }
 </script>
 <!--
@@ -236,14 +297,11 @@
   width: 100%;
   height: 100%;
   display: none;
-}
-#slideshow-container:first-child {
-  display: block;
   margin: 20px;
-  /*border: 1px solid #bbb;*/
+  break-after: page;		/* for printing to pdf */
   overflow: auto;		/* allow vertical scroll bar when needed */
 }
-.nav-outer {
+#nav-outer {
   display: block;
   width: 80%;
   height: 3%;
@@ -252,7 +310,7 @@
   margin-top: -25px;
   padding: 0px;
 }
-.nav-inner {
+#nav-inner {
   float: right;
   margin-top: -35px;
 }
