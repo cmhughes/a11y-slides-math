@@ -5,5 +5,4 @@ newVersion='2024-MM-DD v0.X'
 
 cd ../
 sed -i.bak "s/$oldVersion/$newVersion/g" *
-sed -i.bak "s/$oldVersion/$newVersion/g" docs/*
 exit
