@@ -1,0 +1,7 @@
+title: a11y-slides-math
+description: |-
+  HTML template to write accessibility-oriented slides with symbolic mathematical content 
+  rendered using MathJax
+remote_theme: pages-themes/dinky@v0.2.0
+plugins:
+- jekyll-remote-theme # add this line to the plugins list if you already have one

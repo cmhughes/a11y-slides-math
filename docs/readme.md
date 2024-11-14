@@ -3,7 +3,7 @@ HTML template to write accessibility-oriented slides with symbolic mathematical 
 rendered using [MathJax](https://www.mathjax.org/). 
 
 ## usage/getting started
-Download the file `a11y-slides-math-template.html` and edit it as you see fit. You'll find the 
+Download the file [`a11y-slides-math-template.html`](https://raw.githubusercontent.com/cmhughes/a11y-slides-math/refs/heads/main/a11y-slides-math-template.html) and edit it as you see fit. You'll find the 
 necessary Javascript and CSS at the bottom of the file. 
 
 You can navigate through the slides using the LEFT and RIGHT arrow keys.
