@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--
+#
+# a11y-slides-math template.html
+# V0.1, 2024-11-14
+#
+-->
+<html>
+  <head> 
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <title>Your title goes here</title>
+  </head>
+<!--
+#
+# DOCUMENT body
+#
+-->
+<body onload="initiateSlides()">
+<div id="slideshow-container">
+  <div class="slide">
+    <h1>opening slide</h1>
+    <p>name</p>
+    <p>institution/organisation</p>
+    <p>date</p>
+  </div>
+  <div class="slide">
+    <h1>overview</h1>
+    <ol>
+      <li>one</li>
+      <li>two</li>
+      <li>three</li>
+    </ol>
+  </div>
+  <div class="slide">
+    <h1>some mathematical content</h1>
+    <p>A function \[f(x)=\frac{1}{x^2+3}\]</p>
+    <p>A more complicated example: 
+      \[
+      \int_B\left(v\nabla ^2v+|\operatorname{grad} v|^2\right) dV=\oint_S v\frac{\partial v}{\partial n}\,dA 
+      \]</p>
+    <div class="related-resource">
+      <p>Related resources: <a href="https://docs.mathjax.org/en/v2.7-latest/options/extensions/a11y-extensions.html?highlight=a11y#the-accessibility-extensions">MathJax Accessibility extensions</a>, 
+     <a href="https://www.w3.org/WAI/WCAG21/quickref/#non-text-content">WCAG 1.1.1</a>, 
+     <a href="https://www.w3.org/WAI/WCAG21/quickref/#info-and-relationships">WCAG 1.3.1</a>,
+     <a href="https://www.w3.org/WAI/WCAG21/quickref/#keyboard-accessible">WCAG 2.1.1</a></p>
+    </div>
+  </div>
+  </div>
+<div class="nav-outer">
+  <div class="nav-inner">
+    <p><a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a> <span id="slide-status">slide</span> <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a></p>
+  </div>
+</div>
+</body>
+
+<!--
+# ===========================================================
+# 
+# a11y-slides-math JS and CSS settings
+#
+# edit/ignore as you see fit
+#
+# ===========================================================
+#
+-->
+
+<!--
+# -----------------------------------------------
+# MathJax config
+#	   https://docs.mathjax.org/en/latest/options/menu.html
+#   	   http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn 
+# -----------------------------------------------
+#
+-->
+<script>
+     MathJax = {
+         tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          enableMenu: true,          // set to false to disable the menu
+          menuOptions: {
+            settings: {
+              texHints: true,        // put TeX-related attributes on MathML
+              semantics: false,      // put original format in <semantic> tag in MathML
+              zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
+              zscale: '200%',        // zoom scaling factor
+              renderer: 'CHTML',     // or 'SVG'
+              alt: false,            // true if ALT required for zooming
+              cmd: false,            // true if CMD required for zooming
+              ctrl: false,           // true if CTRL required for zooming
+              shift: false,          // true if SHIFT required for zooming
+              scale: 1,              // scaling factor for all math
+              inTabOrder: true,      // true if tabbing includes math
+              assistiveMml: true,    // true if hidden assistive MathML should be generated for screen readers
+              collapsible: false,    // true if complex math should be collapsible
+              explorer: true,       // true if the expression explorer should be active
+            },
+            annotationTypes: {
+              TeX: ['TeX', 'LaTeX', 'application/x-tex'],
+              StarMath: ['StarMath 5.0'],
+              Maple: ['Maple'],
+              ContentMathML: ['MathML-Content', 'application/mathml-content+xml'],
+              OpenMath: ['OpenMath']
+            }
+          }
+        }
+      };
+   </script>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<!--
+# 
+# -----------------------------------------------
+# Javascript section
+# -----------------------------------------------
+#
+-->
+<script type="text/javascript">
+  let slideIndex = 0;
+  const slides = document.getElementsByClassName("slide");
+
+  // initialise the slides visibility, based on sessionStorage
+  function initiateSlides(){
+     if (sessionStorage.length < 1 ) {
+        showSlides(slideIndex);
+     }
+     // loop through the slides
+     for (let i = 0; i < slides.length; i++) {
+       const currentslide = "slide"+i
+       slides[i].id = currentslide;
+       // check for session storage 
+       if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0){
+     	showSlides(i);
+       }
+     }
+     // ARIA    *vital* to announce H1 on change of slide, see
+     //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+     document.getElementById("slideshow-container").ariaLive = "polite"
+  }
+
+  function showSlides(n) {
+    if (n<0) {n=0};
+    slideIndex = n % slides.length;
+
+    // hide ALL slides
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      sessionStorage.setItem("slide"+i, 0);
+    }
+
+    // unhide CURRENT slide
+    slides[slideIndex].style.display = "block";
+    sessionStorage.setItem("slide"+slideIndex, 1);
+
+    // update < slide n of m >
+    document.getElementById("slide-status").textContent = "slide "+(slideIndex+1)+" of "+slides.length
+
+    // gray out the prev/next button if at begin/end
+    if (n == (slides.length-1)){
+        document.getElementById("next-slide").style.color="#bbb"
+    } else if (n == 0) {
+        document.getElementById("prev-slide").style.color="#bbb"
+    } else {
+        document.getElementById("prev-slide").style.color="black"
+        document.getElementById("next-slide").style.color="black"
+    }
+    // WARNING: *avoid* the following, see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role
+    // document.getElementById("slideshow-container").ariaLabel = "slide "+(slideIndex+1)
+  }
+
+  function moveSlide(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function prevSlide() {
+    moveSlide(-1);
+  }
+
+  function nextSlide() {
+    // check we're not on last slide
+    if ( sessionStorage.getItem("slide"+(slides.length-1)) < 1 ){
+       moveSlide(1);
+    }
+  }
+
+  // arrow key event listeners, https://stackoverflow.com/a/9310900/1091649 
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+       e = e || window.event;
+       if (e.keyCode == 38) {
+           // up arrow
+           // prevSlide();
+       }
+       else if (e.keyCode == 40) {
+           // down arrow
+  	   // nextSlide();
+       }
+       else if (e.keyCode == 37) {
+          // left arrow
+          prevSlide();
+       }
+       else if (e.keyCode == 39) {
+          // right arrow
+  	  nextSlide();
+       }
+   
+   }
+</script>
+<!--
+# 
+# -----------------------------------------------
+# CSS section
+# -----------------------------------------------
+#
+-->
+<style type="text/css">
+/*https://stackoverflow.com/a/30694851/1091649*/
+ html, body {
+    height: 100%;
+ }
+ body, h1, h2, h3, h4, h5, h6  {
+   font-family: Arial, sans-serif;
+ }
+ p, li {
+   font-size: 2rem;
+ }
+#slideshow-container {
+  position: relative;
+  width: 80%;
+  height:85%;
+}
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#slideshow-container:first-child {
+  display: block;
+  margin: 20px;
+  /*border: 1px solid #bbb;*/
+  overflow: auto;		/* allow vertical scroll bar when needed */
+}
+.nav-outer {
+  display: block;
+  width: 80%;
+  height: 3%;
+  /*border: 5px solid cyan;*/
+  margin:20px;
+  margin-top: -25px;
+  padding: 0px;
+}
+.nav-inner {
+  float: right;
+  margin-top: -35px;
+}
+#prev-slide, #next-slide {
+  padding: 16px;
+  font-weight: bold;
+  font-size: 30px;
+  cursor: pointer;
+}
+.related-resource {
+  border-top: 1px solid #bbb;
+}
+/* reference: https://webaim.org/techniques/hypertext/link_text */
+a:link {
+  	text-decoration: underline;
+}
+a:hover, a:focus{
+  	text-decoration: underline;
+	background-color:#ffffcc !important;
+	color: #BF1722;
+	border-top: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
+	border-radius: 4px;
+}
+</style>
+</html>
