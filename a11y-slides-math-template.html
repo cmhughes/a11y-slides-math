@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
 #
-# a11y-slides-math template.html
+# a11y-slides-math-template.html
 # V0.2, 2024-11-14
 #
 -->
 <html>
   <head> 
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
   <title>Your title goes here</title>
   </head>
 <!--
@@ -65,11 +65,11 @@
 -->
 
 <!--
-# -----------------------------------------------
+# ...............................................
 # MathJax config
 #	   https://docs.mathjax.org/en/latest/options/menu.html
 #   	   http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn 
-# -----------------------------------------------
+# ...............................................
 #
 -->
 <script>
@@ -82,7 +82,7 @@
           menuOptions: {
             settings: {
               texHints: true,        // put TeX-related attributes on MathML
-              semantics: false,      // put original format in <semantic> tag in MathML
+              semantics: false,      // put original format in semantic tag in MathML
               zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
               zscale: '200%',        // zoom scaling factor
               renderer: 'CHTML',     // or 'SVG'
@@ -106,15 +106,14 @@
           }
         }
       };
-   </script>
-<script type="text/javascript" id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 <!--
 # 
-# -----------------------------------------------
+# ...............................................
 # Javascript section
-# -----------------------------------------------
+# ...............................................
 #
 -->
 <script type="text/javascript">
@@ -125,10 +124,8 @@
   function initiateSlides(){
      sessionStorage.setItem("all-slides-visible", 0);
 
-     // show the first slide
-     showSlides(0);
-
      // loop through the slides
+     let previousSessionActive = 0;
      for (let i = 0; i < slides.length; i++) {
        const currentslide = "slide"+i
        slides[i].id = currentslide;
@@ -136,8 +133,15 @@
        // check for session storage 
        if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0){
      	showSlides(i);
+        previousSessionActive = 1;
        }
      }
+     
+     // possibly show the first slide
+     if (previousSessionActive == 0) {
+       showSlides(0);
+     }
+
      // ARIA    *vital* to announce H1 on change of slide, see
      //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
      document.getElementById("slideshow-container").ariaLive = "polite"
@@ -271,9 +275,9 @@
 </script>
 <!--
 # 
-# -----------------------------------------------
+# ...............................................
 # CSS section
-# -----------------------------------------------
+# ...............................................
 #
 -->
 <style type="text/css">
