@@ -9,7 +9,7 @@ necessary Javascript and CSS at the bottom of the file.
 You can navigate through the slides using the LEFT and RIGHT arrow keys.
 
 ## version
-V0.2, 2024-11-14
+V0.3, 2024-11-18
 
 ## testing with NVDA
 To test `a11y-slides-math-template.html` with [NVDA](https://www.nvaccess.org/download/), use the following steps:
