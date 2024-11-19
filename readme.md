@@ -10,7 +10,7 @@ You can *edit* the template by downloading the file [`a11y-slides-math-template.
 You can navigate through the slides using the LEFT and RIGHT arrow keys.
 
 ## version
-V0.3, 2024-11-18
+V0.4, 2024-11-19
 
 ## testing with NVDA
 To test `a11y-slides-math-template.html` with [NVDA](https://www.nvaccess.org/download/), use the following steps:

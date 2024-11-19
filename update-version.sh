@@ -1,7 +1,7 @@
 #!/bin/bash
 
-oldVersion='V0.2, 2024-11-14'
-newVersion='V0.3, 2024-11-18'
+oldVersion='V0.3, 2024-11-18'
+newVersion='V0.4, 2024-11-19'
 
 listOfFiles=(
    a11y-slides-math-template.html
