@@ -94,5 +94,14 @@ with assistive technology.  I intend to keep it that way, prioritising accessibi
 ## printing your slides
 If you press `SHIFT+P` then all slides will be presented in your browser. From here, you should be able to print to pdf, and you should receive one slide per page in the pdf.
 
+## examples
+You can find further examples in the following files:
+
+* [1-example.html](https://cmhughes.github.io/a11y-slides-math/examples/1-example.html), automatically numbering slides
+* [2-example.html](https://cmhughes.github.io/a11y-slides-math/examples/2-example.html), automatically numbering examples
+* [3-example.html](https://cmhughes.github.io/a11y-slides-math/examples/3-example.html), automatically numbering examples and theorems
+
+See the [examples](https://github.com/cmhughes/a11y-slides-math/tree/main/examples) directory to download the files for the above.
+
 ## acknowledgements
 This project is based on the work of Utibe Udoma posted at [How to build a slideshow using HTML, CSS, and JavaScript](https://medium.com/illumination/how-to-build-a-slideshow-using-html-css-and-javascript-977ecbdbf48c)

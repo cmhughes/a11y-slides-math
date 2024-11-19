@@ -2,58 +2,50 @@
 <!--
 #
 # a11y-slides-math-template.html
-# V0.3, 2024-11-18
+# example 2: demonstrate example numbers
 #
 -->
 <html>
-  <head> 
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <title>Your title goes here</title>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Your title goes here</title>
   </head>
-<!--
+  <!--
 #
 # DOCUMENT body
 #
 -->
-<body onload="initiateSlides()">
-<div id="slideshow-container">
-  <div class="slide">
-    <h1>opening slide</h1>
-    <p>name</p>
-    <p>institution/organisation</p>
-    <p>date</p>
-  </div>
-  <div class="slide">
-    <h1>overview</h1>
-    <ol>
-      <li>one</li>
-      <li>two</li>
-      <li>three</li>
-    </ol>
-  </div>
-  <div class="slide">
-    <h1>some mathematical content</h1>
-    <p>A function \[f(x)=\frac{1}{x^2+3}\]</p>
-    <p>A more complicated example: 
-      \[
-      \int_B\left(v\nabla ^2v+|\operatorname{grad} v|^2\right) dV=\oint_S v\frac{\partial v}{\partial n}\,dA 
-      \]</p>
-    <div class="related-resource">
-      <p>Related resources: <a href="https://docs.mathjax.org/en/v2.7-latest/options/extensions/a11y-extensions.html?highlight=a11y#the-accessibility-extensions">MathJax Accessibility extensions</a>, 
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#non-text-content">WCAG 1.1.1</a>, 
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#info-and-relationships">WCAG 1.3.1</a>,
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#keyboard-accessible">WCAG 2.1.1</a></p>
+  <body onload="initiateSlides()">
+    <div id="slideshow-container">
+      <div class="slide">
+        <h1>my first slide</h1>
+        <h2 class="example">example</h2>
+        <p>my example text goes here $y=x^3+5x^2-7$</p>
+      </div>
+      <div class="slide">
+        <h1>my second slide</h1>
+        <h2 class="example">example</h2>
+        <p>my other example text goes here $y=\sin(x^3+5)+\tan x$</p>
+        <h2 class="example">example</h2>
+        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
+      </div>
+      <div class="slide">
+        <h1>my third slide</h1>
+        <h2 class="example">example</h2>
+        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
+      </div>
     </div>
-  </div>
-  </div>
-<div id="nav-outer">
-  <div id="nav-inner">
-    <p><a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a> <span id="slide-status">slide</span> <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a></p>
-  </div>
-</div>
-</body>
-
-<!--
+    <div id="nav-outer">
+      <div id="nav-inner">
+        <p>
+          <a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a>
+          <span id="slide-status">slide</span>
+          <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a>
+        </p>
+      </div>
+    </div>
+  </body>
+  <!--
 # ===========================================================
 # 
 # a11y-slides-math JS and CSS settings
@@ -63,8 +55,7 @@
 # ===========================================================
 #
 -->
-
-<!--
+  <!--
 # ...............................................
 # MathJax config
 #	   https://docs.mathjax.org/en/latest/options/menu.html
@@ -145,6 +136,14 @@
      // ARIA    *vital* to announce H1 on change of slide, see
      //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
      document.getElementById("slideshow-container").ariaLive = "polite"
+
+     //
+     // *new* for example 2 number the <h2> elements
+     //
+     // algorithmically number h2 for each slide
+     for (let i=0; i < document.getElementsByClassName("example").length; i++){
+         document.getElementsByClassName("example")[i].textContent = document.getElementsByClassName("example")[i].textContent +" "+ (i+1)
+     }
   }
 
   function showSlides(n) {
@@ -305,7 +304,7 @@
 # ...............................................
 #
 -->
-<style type="text/css">
+  <style type="text/css">
 /*https://stackoverflow.com/a/30694851/1091649*/
  html, body {
     height: 100%;

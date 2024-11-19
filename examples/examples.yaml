@@ -1,0 +1,131 @@
+examples:
+  -
+   #
+   # example 1
+   #
+   filename: 1-example.html
+   description: "example 1: demonstrate slide numbers algorithmically"
+   CSS: |-
+     body {counter-reset: heading;}
+   replacements:
+     -
+      this: document.getElementById("slideshow-container").ariaLive = "polite"
+      that: |-
+        document.getElementById("slideshow-container").ariaLive = "polite"
+
+             //
+             // *new* for example 1: number the <h1> elements
+             //
+             // algorithmically number h1 for each slide
+             for (let i=0; i < document.getElementsByTagName("h1").length; i++){
+                 document.getElementsByTagName("h1")[i].textContent = (i+1)+" "+document.getElementsByTagName("h1")[i].textContent 
+             }
+  -
+   #
+   # example 2
+   #
+   filename: 2-example.html
+   description: "example 2: demonstrate example numbers"
+   slides:
+     -
+      elements:
+        - h1: my first slide
+        - h2: example
+          attrib: 
+            class: "example"
+        - p: my example text goes here $y=x^3+5x^2-7$
+     -
+      elements:
+        - h1: my second slide
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: my other example text goes here $y=\sin(x^3+5)+\tan x$
+        - h2: example
+          attrib: 
+            class: "example"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+     -
+      elements:
+        - h1: my third slide
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+   replacements:
+     -
+      this: document.getElementById("slideshow-container").ariaLive = "polite"
+      that: |-
+        document.getElementById("slideshow-container").ariaLive = "polite"
+
+             //
+             // *new* for example 2 number the <h2> elements
+             //
+             // algorithmically number h2 for each slide
+             for (let i=0; i < document.getElementsByClassName("example").length; i++){
+                 document.getElementsByClassName("example")[i].textContent = document.getElementsByClassName("example")[i].textContent +" "+ (i+1)
+             }
+  -
+   #
+   # example 3
+   #
+   filename: 3-example.html
+   description: "example 3: demonstrate example and theorem numbers"
+   slides:
+     -
+      elements:
+        - h1: my first slide
+        - h2: example
+          attrib: 
+            class: "example"
+        - p: my example text goes here $y=x^3+5x^2-7$
+     -
+      elements:
+        - h1: my second slide
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: my other example text goes here $y=\sin(x^3+5)+\tan x$
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+     -
+      elements:
+        - h1: my third slide
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+     -
+      elements:
+        - h1: more theorems and examples
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+   replacements:
+     -
+      this: document.getElementById("slideshow-container").ariaLive = "polite"
+      that: |-
+        document.getElementById("slideshow-container").ariaLive = "polite"
+
+             //
+             // *new* for example 3 number the <h2> elements, separately for example and theorem
+             //
+             // algorithmically number h2 for each slide
+             for (let i=0; i < document.getElementsByClassName("example").length; i++){
+                 document.getElementsByClassName("example")[i].textContent = document.getElementsByClassName("example")[i].textContent +" "+ (i+1)
+             }
+             for (let i=0; i < document.getElementsByClassName("theorem").length; i++){
+                 document.getElementsByClassName("theorem")[i].textContent = document.getElementsByClassName("theorem")[i].textContent +" "+ (i+1)
+             }

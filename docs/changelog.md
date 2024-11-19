@@ -1,5 +1,8 @@
 # changelog.md
 
+## V0.4, November 19, 2024
+Examples of auto numbering demonstrated and documented, small tweak to navigation button style
+
 ## V0.3, November 18, 2024
 CSS for navigation buttons updated so that on-mouse-hover works as expected.
 
