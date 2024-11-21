@@ -129,3 +129,211 @@ examples:
              for (let i=0; i < document.getElementsByClassName("theorem").length; i++){
                  document.getElementsByClassName("theorem")[i].textContent = document.getElementsByClassName("theorem")[i].textContent +" "+ (i+1)
              }
+  -
+   #
+   # example 4
+   #
+   filename: 4-example.html
+   description: "example 4: demonstrate table of contents"
+   slides:
+     -
+      elements:
+        - h1: we will have a table of contents
+        - p: the next slide will automatically create a list of slides, with hyperlinks
+     -
+      elements:
+        - h1: List of slides
+        - div: ''
+          attrib: 
+            id: "list-of-slides"
+     -
+      elements:
+        - h1: my first slide
+          attrib: 
+            class: "slide-heading"
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: my other example text goes here $y=\sin(x^3+5)+\tan x$
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+     -
+      elements:
+        - h1: my second slide
+          attrib: 
+            class: "slide-heading"
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+     -
+      elements:
+        - h1: my third slide
+          attrib: 
+            class: "slide-heading"
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+   replacements:
+     -
+      this: document.getElementById("slideshow-container").ariaLive = "polite"
+      that: |-
+        document.getElementById("slideshow-container").ariaLive = "polite"
+
+             //
+             // *new* for example 4 list of slides
+             //
+             // algorithmically create list of slides
+             //
+
+             // create unordered list
+             var ul_list_of_slides = document.createElement('ul');
+
+             // get the slide headings
+             var headings_for_slides = document.getElementsByClassName("slide-heading")
+
+             // get all the slides
+             var all_slides = document.getElementsByClassName("slide");
+
+             // loop through the slide headings
+             for (let i=0; i < headings_for_slides.length; i++){
+
+                 // create <li> element
+                 var li_for_list_of_slides = document.createElement('li');
+
+                 // create <a> element
+                 var a_for_li = document.createElement('a');
+                 a_for_li.textContent = headings_for_slides[i].textContent;
+
+                 // set up the href attribute for the link
+                 for (let j=0; j < all_slides.length; j++ ){
+                    if( all_slides[j].contains(headings_for_slides[i]) ){
+                      a_for_li.setAttribute("href","javascript:showSlides("+j+")");
+                    }
+                 }
+
+                 // append <a> to <li>
+                 li_for_list_of_slides.append(a_for_li);
+
+                 // append <li> to <ul>
+                 ul_list_of_slides.append(li_for_list_of_slides);
+             }
+
+             // finally, append <ul> to <div id="list-of-slides">
+             document.getElementById("list-of-slides").append(ul_list_of_slides);
+  -
+   #
+   # example 5
+   #
+   filename: 5-example.html
+   description: "example 5: demonstrate table of contents, with automatically numberered headings"
+   slides:
+     -
+      elements:
+        - h1: we will have a table of contents
+        - p: the next slide will automatically create a list of slides, with hyperlinks
+     -
+      elements:
+        - h1: List of slides
+        - div: ''
+          attrib: 
+            id: "list-of-slides"
+     -
+      elements:
+        - h1: my first slide
+          attrib: 
+            class: "slide-heading"
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: my other example text goes here $y=\sin(x^3+5)+\tan x$
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+     -
+      elements:
+        - h1: my second slide
+          attrib: 
+            class: "slide-heading"
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+     -
+      elements:
+        - h1: my third slide
+          attrib: 
+            class: "slide-heading"
+        - h2: theorem
+          attrib: 
+            class: "theorem"
+        - p: yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]
+        - 
+          h2: example
+          attrib: 
+            class: "example"
+        - p: More text and \[\begin{array}{cc}1 & 2\\3 & 4\end{array}\]
+   replacements:
+     -
+      this: document.getElementById("slideshow-container").ariaLive = "polite"
+      that: |-
+        document.getElementById("slideshow-container").ariaLive = "polite"
+
+             //
+             // *new* for example 5 list of slides
+             //
+             // algorithmically create list of slides, algorithmically numbered headings
+             //
+
+             // create unordered list
+             var ul_list_of_slides = document.createElement('ul');
+
+             // get the slide headings
+             var headings_for_slides = document.getElementsByClassName("slide-heading");
+
+             for (let i=0; i < headings_for_slides.length; i++){
+                 headings_for_slides[i].textContent = (i+1)+". "+headings_for_slides[i].textContent;
+             }
+
+             // get all the slides
+             var all_slides = document.getElementsByClassName("slide");
+
+             // loop through the slide headings
+             for (let i=0; i < headings_for_slides.length; i++){
+
+                 // create <li> element
+                 var li_for_list_of_slides = document.createElement('li');
+
+                 // create <a> element
+                 var a_for_li = document.createElement('a');
+                 a_for_li.textContent = headings_for_slides[i].textContent;
+
+                 // set up the href attribute for the link
+                 for (let j=0; j < all_slides.length; j++ ){
+                    if( all_slides[j].contains(headings_for_slides[i]) ){
+                      a_for_li.setAttribute("href","javascript:showSlides("+j+")");
+                    }
+                 }
+
+                 // append <a> to <li>
+                 li_for_list_of_slides.append(a_for_li);
+
+                 // append <li> to <ul>
+                 ul_list_of_slides.append(li_for_list_of_slides);
+             }
+
+             // finally, append <ul> to <div id="list-of-slides">
+             document.getElementById("list-of-slides").append(ul_list_of_slides);

@@ -100,6 +100,8 @@ You can find further examples in the following files:
 * [1-example.html](https://cmhughes.github.io/a11y-slides-math/examples/1-example.html), automatically numbering slides
 * [2-example.html](https://cmhughes.github.io/a11y-slides-math/examples/2-example.html), automatically numbering examples
 * [3-example.html](https://cmhughes.github.io/a11y-slides-math/examples/3-example.html), automatically numbering examples and theorems
+* [4-example.html](https://cmhughes.github.io/a11y-slides-math/examples/4-example.html), automatically generate list of slides
+* [5-example.html](https://cmhughes.github.io/a11y-slides-math/examples/5-example.html), automatically generate list of slides, automatically number slide headings
 
 See the [examples](https://github.com/cmhughes/a11y-slides-math/tree/main/examples) directory to download the files for the above.
 

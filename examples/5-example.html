@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--
+#
+# a11y-slides-math-template.html
+# example 5: demonstrate table of contents, with automatically numberered headings
+#
+-->
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Your title goes here</title>
+  </head>
+  <!--
+#
+# DOCUMENT body
+#
+-->
+  <body onload="initiateSlides()">
+    <div id="slideshow-container">
+      <div class="slide">
+        <h1>we will have a table of contents</h1>
+        <p>the next slide will automatically create a list of slides, with hyperlinks</p>
+      </div>
+      <div class="slide">
+        <h1>List of slides</h1>
+        <div id="list-of-slides"></div>
+      </div>
+      <div class="slide">
+        <h1 class="slide-heading">my first slide</h1>
+        <h2 class="example">example</h2>
+        <p>my other example text goes here $y=\sin(x^3+5)+\tan x$</p>
+        <h2 class="theorem">theorem</h2>
+        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
+      </div>
+      <div class="slide">
+        <h1 class="slide-heading">my second slide</h1>
+        <h2 class="example">example</h2>
+        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
+      </div>
+      <div class="slide">
+        <h1 class="slide-heading">my third slide</h1>
+        <h2 class="theorem">theorem</h2>
+        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
+        <h2 class="example">example</h2>
+        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
+      </div>
+    </div>
+    <div id="nav-outer">
+      <div id="nav-inner">
+        <p>
+          <a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a>
+          <span id="slide-status">slide</span>
+          <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a>
+        </p>
+      </div>
+    </div>
+  </body>
+  <!--
+# ===========================================================
+# 
+# a11y-slides-math JS and CSS settings
+#
+# edit/ignore as you see fit
+#
+# ===========================================================
+#
+-->
+  <!--
+# ...............................................
+# MathJax config
+#	   https://docs.mathjax.org/en/latest/options/menu.html
+#   	   http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn 
+# ...............................................
+#
+-->
+<script>
+     MathJax = {
+         tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          enableMenu: true,          // set to false to disable the menu
+          menuOptions: {
+            settings: {
+              texHints: true,        // put TeX-related attributes on MathML
+              semantics: false,      // put original format in semantic tag in MathML
+              zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
+              zscale: '200%',        // zoom scaling factor
+              renderer: 'CHTML',     // or 'SVG'
+              alt: false,            // true if ALT required for zooming
+              cmd: false,            // true if CMD required for zooming
+              ctrl: false,           // true if CTRL required for zooming
+              shift: false,          // true if SHIFT required for zooming
+              scale: 1,              // scaling factor for all math
+              inTabOrder: true,      // true if tabbing includes math
+              assistiveMml: true,    // true if hidden assistive MathML should be generated for screen readers
+              collapsible: false,    // true if complex math should be collapsible
+              explorer: true,       // true if the expression explorer should be active
+            },
+            annotationTypes: {
+              TeX: ['TeX', 'LaTeX', 'application/x-tex'],
+              StarMath: ['StarMath 5.0'],
+              Maple: ['Maple'],
+              ContentMathML: ['MathML-Content', 'application/mathml-content+xml'],
+              OpenMath: ['OpenMath']
+            }
+          }
+        }
+      };
+</script>
+<script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<!--
+# 
+# ...............................................
+# Javascript section
+# ...............................................
+#
+-->
+<script type="text/javascript">
+  let slideIndex = 0;
+  const slides = document.getElementsByClassName("slide");
+
+  // initialise the slides visibility, based on sessionStorage
+  function initiateSlides(){
+     sessionStorage.setItem("all-slides-visible", 0);
+
+     // loop through the slides
+     let previousSessionActive = 0;
+     for (let i = 0; i < slides.length; i++) {
+       const currentslide = "slide"+i
+       slides[i].id = currentslide;
+
+       // check for session storage 
+       if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0){
+     	showSlides(i);
+        previousSessionActive = 1;
+       }
+     }
+     
+     // possibly show the first slide
+     if (previousSessionActive == 0) {
+       showSlides(0);
+     }
+
+     // ARIA    *vital* to announce H1 on change of slide, see
+     //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+     document.getElementById("slideshow-container").ariaLive = "polite"
+
+     //
+     // *new* for example 5 list of slides
+     //
+     // algorithmically create list of slides, algorithmically numbered headings
+     //
+
+     // create unordered list
+     var ul_list_of_slides = document.createElement('ul');
+
+     // get the slide headings
+     var headings_for_slides = document.getElementsByClassName("slide-heading");
+
+     for (let i=0; i < headings_for_slides.length; i++){
+         headings_for_slides[i].textContent = (i+1)+". "+headings_for_slides[i].textContent;
+     }
+
+     // get all the slides
+     var all_slides = document.getElementsByClassName("slide");
+
+     // loop through the slide headings
+     for (let i=0; i < headings_for_slides.length; i++){
+
+         // create <li> element
+         var li_for_list_of_slides = document.createElement('li');
+
+         // create <a> element
+         var a_for_li = document.createElement('a');
+         a_for_li.textContent = headings_for_slides[i].textContent;
+
+         // set up the href attribute for the link
+         for (let j=0; j < all_slides.length; j++ ){
+            if( all_slides[j].contains(headings_for_slides[i]) ){
+              a_for_li.setAttribute("href","javascript:showSlides("+j+")");
+            }
+         }
+
+         // append <a> to <li>
+         li_for_list_of_slides.append(a_for_li);
+
+         // append <li> to <ul>
+         ul_list_of_slides.append(li_for_list_of_slides);
+     }
+
+     // finally, append <ul> to <div id="list-of-slides">
+     document.getElementById("list-of-slides").append(ul_list_of_slides);
+  }
+
+  function showSlides(n) {
+    if (n<0) {n=0};
+    slideIndex = n % slides.length;
+
+    // hide ALL slides
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      sessionStorage.setItem("slide"+i, 0);
+    }
+
+    // unhide CURRENT slide
+    slides[slideIndex].style.display = "block";
+    sessionStorage.setItem("slide"+slideIndex, 1);
+
+    // update < slide n of m >
+    document.getElementById("slide-status").textContent = "slide "+(slideIndex+1)+" of "+slides.length
+
+    // gray out the prev/next button if at begin/end
+    if (n == (slides.length-1)){
+        document.getElementById("prev-slide").style.color="black"
+        document.getElementById("next-slide").style.color="#bbb"
+    } else if (n == 0) {
+        document.getElementById("prev-slide").style.color="#bbb"
+        document.getElementById("next-slide").style.color="black"
+    } else {
+        document.getElementById("prev-slide").style.color="black"
+        document.getElementById("next-slide").style.color="black"
+    }
+    // WARNING: *avoid* the following, see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role
+    // document.getElementById("slideshow-container").ariaLabel = "slide "+(slideIndex+1)
+  }
+
+  function moveSlide(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function prevSlide() {
+    moveSlide(-1);
+  }
+
+  function nextSlide() {
+    // check we're not on last slide
+    if ( sessionStorage.getItem("slide"+(slides.length-1)) < 1 ){
+       moveSlide(1);
+    }
+  }
+
+  // arrow key event listeners, https://stackoverflow.com/a/9310900/1091649 
+  document.onkeydown = checkKey;
+  function checkKey(e) {
+       e = e || window.event;
+       if (e.keyCode == 38) {
+           // up arrow
+           // prevSlide();
+       }
+       else if (e.keyCode == 40) {
+           // down arrow
+  	   // nextSlide();
+       }
+       else if (e.keyCode == 37) {
+          // left arrow
+	  // check for 'all-slides-visible' mode, and adjust as necessary
+     	  if (sessionStorage.getItem("all-slides-visible")>0){
+  	    toggleAllSlides();
+	  }
+          prevSlide();
+       }
+       else if (e.keyCode == 39) {
+          // right arrow
+	  // check for 'all-slides-visible' mode, and adjust as necessary
+     	  if (sessionStorage.getItem("all-slides-visible")>0){
+  	    toggleAllSlides();
+	  }
+  	  nextSlide();
+       }
+       else if ( e.shiftKey && e.keyCode == 80 ) {
+	  // SHIFT+p
+  	  toggleAllSlides();
+       }
+   }
+   
+   // toggle all slides for printing (or other reasons)
+   function toggleAllSlides(){
+     let slidePosition;
+     let slideBorder;
+     let slideDisplay;
+
+     // toggle back to individual slide
+     if (sessionStorage.getItem("all-slides-visible")>0){
+     	sessionStorage.setItem("all-slides-visible", 0);
+	slidePosition = "absolute";
+	slideBorder = "none";
+	slideDisplay = "none";
+
+        // toggle nav
+        document.getElementById("nav-outer").style.display = "block";
+        document.getElementById("slideshow-container").ariaLabel = null;
+     } else {
+        // toggle to all slides
+     	sessionStorage.setItem("all-slides-visible", 1);
+	slidePosition = "static";
+	slideBorder = "solid";
+	slideDisplay = "block";
+
+        // toggle nav
+        document.getElementById("nav-outer").style.display = "none";
+        document.getElementById("slideshow-container").ariaLabel = "All slides shown, useful for printing. Press SHIFT+P or LEFT or RIGHT to go individual slide";
+     }
+
+     // loop through slides, toggle CSS for printing/not printing
+     for (i = 0; i < slides.length; i++) {
+       slides[i].style.position = slidePosition;
+       slides[i].style.borderStyle = slideBorder;
+       slides[i].style.display = slideDisplay;
+     }
+
+     // finally, possibly toggle active slide back on
+     if (sessionStorage.getItem("all-slides-visible") <1){
+        for (i = 0; i < slides.length; i++) {
+          const currentslide = "slide"+i;
+          // toggle individual slide visibility back
+          if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0 ){
+        	showSlides(i);
+          }
+        }
+     }
+   }
+
+  // swipe slides, https://stackoverflow.com/a/56663695/1091649
+  let touchstartX = 0
+  let touchendX = 0
+  
+  function checkDirection() {
+    if (touchendX < touchstartX){
+       nextSlide();
+    }
+
+    if (touchendX > touchstartX){
+       prevSlide();
+    }
+  }
+  
+  document.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX
+  })
+  
+  document.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX
+    checkDirection()
+  })
+</script>
+<!--
+# 
+# ...............................................
+# CSS section
+# ...............................................
+#
+-->
+  <style type="text/css">
+/*https://stackoverflow.com/a/30694851/1091649*/
+ html, body {
+    height: 100%;
+ }
+ body, h1, h2, h3, h4, h5, h6  {
+   font-family: Arial, sans-serif;
+ }
+ p, li {
+   font-size: 2rem;
+ }
+#slideshow-container {
+  position: relative;
+  width: 80%;
+  height:85%;
+}
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  margin: 20px;
+  break-after: page;		/* for printing to pdf */
+  overflow: auto;		/* allow vertical scroll bar when needed */
+}
+#nav-outer {
+  display: block;
+  width: 80%;
+  height: 3%;
+  /*border: 5px solid cyan;*/
+  /*margin:20px;
+  margin-top: -25px;*/
+  padding: 0px;
+}
+#nav-inner {
+  float: right;
+  /*margin-top: -35px;*/
+}
+#prev-slide, #next-slide {
+  padding: 16px;
+  font-weight: bold;
+  font-size: 30px;
+  cursor: pointer;
+}
+.related-resource {
+  border-top: 1px solid #bbb;
+}
+/* reference: https://webaim.org/techniques/hypertext/link_text */
+a:link {
+  	text-decoration: underline;
+}
+a:hover, a:focus{
+  	text-decoration: underline;
+	background-color:#ffffcc !important;
+	color: #BF1722;
+	border-top: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
+	border-radius: 4px;
+}
+</style>
+</html>
