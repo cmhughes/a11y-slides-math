@@ -280,11 +280,11 @@
   let touchendX = 0
   
   function checkDirection() {
-    if (touchendX < touchstartX){
+     if (touchendX < touchstartX && Math.abs( touchstartX - touchendX ) > 50){
        nextSlide();
     }
 
-    if (touchendX > touchstartX){
+     if (touchendX > touchstartX && Math.abs( touchstartX - touchendX ) > 50){
        prevSlide();
     }
   }
