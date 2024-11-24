@@ -1,5 +1,8 @@
 # changelog.md
 
+## V0.5, November 24, 2024
+CSS adjustments for screen sizes, and response to swiping, thanks to @williamsgarethrichard for their work on this.
+
 ## V0.4, November 19, 2024
 Examples of auto numbering demonstrated and documented, small tweak to navigation button style
 

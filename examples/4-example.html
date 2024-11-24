@@ -323,11 +323,11 @@
   let touchendX = 0
   
   function checkDirection() {
-    if (touchendX < touchstartX){
+     if (touchendX < touchstartX && Math.abs( touchstartX - touchendX ) > 50){
        nextSlide();
     }
 
-    if (touchendX > touchstartX){
+     if (touchendX > touchstartX && Math.abs( touchstartX - touchendX ) > 50){
        prevSlide();
     }
   }
@@ -344,24 +344,31 @@
 <!--
 # 
 # ...............................................
-# CSS section
+# CSS section; note, this is attempted to be 'mobile first' oriented
 # ...............................................
 #
 -->
   <style type="text/css">
-/*https://stackoverflow.com/a/30694851/1091649*/
  html, body {
-    height: 100%;
+    height: 100%; /*https://stackoverflow.com/a/30694851/1091649*/
  }
  body, h1, h2, h3, h4, h5, h6  {
    font-family: Arial, sans-serif;
  }
+ /* https://stackoverflow.com/questions/9174669/best-practice-font-size-for-mobile */
+ h1 { font-size: 2.5rem; }
+ h2 { font-size: 2.25rem; }
+ h3 { font-size: 2rem; }
+ h4 { font-size: 1.75rem; }
+ h5 { font-size: 1.5rem; }
+ h6 { font-size: 1.25rem; }
  p, li {
    font-size: 2rem;
+   margin-bottom: 2rem; /*https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html*/
  }
 #slideshow-container {
   position: relative;
-  width: 80%;
+  width: 100%;
   height:85%;
 }
 .slide {
@@ -369,22 +376,18 @@
   width: 100%;
   height: 100%;
   display: none;
-  margin: 20px;
+  margin: 0px;
   break-after: page;		/* for printing to pdf */
   overflow: auto;		/* allow vertical scroll bar when needed */
 }
 #nav-outer {
   display: block;
-  width: 80%;
+  width: 100%;
   height: 3%;
-  /*border: 5px solid cyan;*/
-  /*margin:20px;
-  margin-top: -25px;*/
   padding: 0px;
 }
 #nav-inner {
   float: right;
-  /*margin-top: -35px;*/
 }
 #prev-slide, #next-slide {
   padding: 16px;
@@ -406,6 +409,56 @@ a:hover, a:focus{
 	border-top: 1px solid #bbb;
 	border-bottom: 1px solid #bbb;
 	border-radius: 4px;
+}
+/** 
+#
+# CSS Screen size adjustments
+#
+# https://stackoverflow.com/a/70727606/1091649
+#
+  **/
+@media only screen and (min-width:1000px) {
+   #slideshow-container {
+     position: relative;
+     width: 80%;
+     height:85%;
+   }
+   .slide {
+     margin: 20px;
+   }
+   #nav-outer {
+     width: 80%;
+   }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 992px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 16px;
+    }
 }
 </style>
 </html>
