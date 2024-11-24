@@ -105,5 +105,8 @@ You can find further examples in the following files:
 
 See the [examples](https://github.com/cmhughes/a11y-slides-math/tree/main/examples) directory to download the files for the above.
 
+## changelog
+[changelog.md](docs/changelog.md) provides details of the history of the project.
+
 ## acknowledgements
 This project is based on the work of Utibe Udoma posted at [How to build a slideshow using HTML, CSS, and JavaScript](https://medium.com/illumination/how-to-build-a-slideshow-using-html-css-and-javascript-977ecbdbf48c)
