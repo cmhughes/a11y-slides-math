@@ -1,5 +1,8 @@
 # changelog.md
 
+## V0.6, November 28, 2024
+Meta tag tweaks, CSS small tweak.
+
 ## V0.5, November 24, 2024
 CSS adjustments for screen sizes, and response to swiping, thanks to @williamsgarethrichard for their work on this.
 
