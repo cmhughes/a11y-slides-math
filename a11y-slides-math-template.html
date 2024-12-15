@@ -6,12 +6,12 @@
 #
 -->
 <html>
-  <head> 
+<head>
   <meta charset="UTF-8"/>
   <meta name="keywords" content="a11y, accessibility, slides, HTML"/>
   <meta name="author" content="Your name here"/>
   <title>Your title goes here</title>
-  </head>
+</head>
 <!--
 #
 # DOCUMENT body
@@ -36,18 +36,18 @@
   <div class="slide">
     <h1>some mathematical content</h1>
     <p>A function \[f(x)=\frac{1}{x^2+3}\]</p>
-    <p>A more complicated example: 
+    <p>A more complicated example:
       \[
-      \int_B\left(v\nabla ^2v+|\operatorname{grad} v|^2\right) dV=\oint_S v\frac{\partial v}{\partial n}\,dA 
+      \int_B\left(v\nabla ^2v+|\operatorname{grad} v|^2\right) dV=\oint_S v\frac{\partial v}{\partial n}\,dA
       \]</p>
     <div class="related-resource">
       <p>Related resources: <a href="https://docs.mathjax.org/en/v2.7-latest/options/extensions/a11y-extensions.html?highlight=a11y#the-accessibility-extensions">MathJax Accessibility extensions</a>, 
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#non-text-content">WCAG 1.1.1</a>, 
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#info-and-relationships">WCAG 1.3.1</a>,
-     <a href="https://www.w3.org/WAI/WCAG21/quickref/#keyboard-accessible">WCAG 2.1.1</a></p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/#non-text-content">WCAG 1.1.1</a>,
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/#info-and-relationships">WCAG 1.3.1</a>,
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/#keyboard-accessible">WCAG 2.1.1</a></p>
     </div>
   </div>
-  </div>
+</div>
 <div id="nav-outer">
   <div id="nav-inner">
     <p><a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a> <span id="slide-status">slide</span> <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a></p>
@@ -75,39 +75,39 @@
 #
 -->
 <script>
-     MathJax = {
-         tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']]
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    options: {
+      enableMenu: true,          // set to false to disable the menu
+      menuOptions: {
+        settings: {
+          texHints: true,        // put TeX-related attributes on MathML
+          semantics: false,      // put original format in semantic tag in MathML
+          zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
+          zscale: '200%',        // zoom scaling factor
+          renderer: 'CHTML',     // or 'SVG'
+          alt: false,            // true if ALT required for zooming
+          cmd: false,            // true if CMD required for zooming
+          ctrl: false,           // true if CTRL required for zooming
+          shift: false,          // true if SHIFT required for zooming
+          scale: 1,              // scaling factor for all math
+          inTabOrder: true,      // true if tabbing includes math
+          assistiveMml: true,    // true if hidden assistive MathML should be generated for screen readers
+          collapsible: false,    // true if complex math should be collapsible
+          explorer: true,       // true if the expression explorer should be active
         },
-        options: {
-          enableMenu: true,          // set to false to disable the menu
-          menuOptions: {
-            settings: {
-              texHints: true,        // put TeX-related attributes on MathML
-              semantics: false,      // put original format in semantic tag in MathML
-              zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
-              zscale: '200%',        // zoom scaling factor
-              renderer: 'CHTML',     // or 'SVG'
-              alt: false,            // true if ALT required for zooming
-              cmd: false,            // true if CMD required for zooming
-              ctrl: false,           // true if CTRL required for zooming
-              shift: false,          // true if SHIFT required for zooming
-              scale: 1,              // scaling factor for all math
-              inTabOrder: true,      // true if tabbing includes math
-              assistiveMml: true,    // true if hidden assistive MathML should be generated for screen readers
-              collapsible: false,    // true if complex math should be collapsible
-              explorer: true,       // true if the expression explorer should be active
-            },
-            annotationTypes: {
-              TeX: ['TeX', 'LaTeX', 'application/x-tex'],
-              StarMath: ['StarMath 5.0'],
-              Maple: ['Maple'],
-              ContentMathML: ['MathML-Content', 'application/mathml-content+xml'],
-              OpenMath: ['OpenMath']
-            }
-          }
+        annotationTypes: {
+          TeX: ['TeX', 'LaTeX', 'application/x-tex'],
+          StarMath: ['StarMath 5.0'],
+          Maple: ['Maple'],
+          ContentMathML: ['MathML-Content', 'application/mathml-content+xml'],
+          OpenMath: ['OpenMath']
         }
-      };
+      }
+    }
+  };
 </script>
 <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
@@ -123,59 +123,59 @@
   const slides = document.getElementsByClassName("slide");
 
   // initialise the slides visibility, based on sessionStorage
-  function initiateSlides(){
-     sessionStorage.setItem("all-slides-visible", 0);
+  function initiateSlides() {
+    sessionStorage.setItem("all-slides-visible", 0);
 
-     // loop through the slides
-     let previousSessionActive = 0;
-     for (let i = 0; i < slides.length; i++) {
-       const currentslide = "slide"+i
-       slides[i].id = currentslide;
+    // loop through the slides
+    let previousSessionActive = 0;
+    for (let i = 0; i < slides.length; i++) {
+      const currentslide = "slide" + i
+      slides[i].id = currentslide;
 
-       // check for session storage 
-       if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0){
-     	showSlides(i);
+      // check for session storage 
+      if (sessionStorage.length > 0 && sessionStorage.getItem(currentslide) > 0) {
+        showSlides(i);
         previousSessionActive = 1;
-       }
-     }
-     
-     // possibly show the first slide
-     if (previousSessionActive == 0) {
-       showSlides(0);
-     }
+      }
+    }
 
-     // ARIA    *vital* to announce H1 on change of slide, see
-     //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
-     document.getElementById("slideshow-container").ariaLive = "polite"
+    // possibly show the first slide
+    if (previousSessionActive == 0) {
+      showSlides(0);
+    }
+
+    // ARIA    *vital* to announce H1 on change of slide, see
+    //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+    document.getElementById("slideshow-container").ariaLive = "polite"
   }
 
   function showSlides(n) {
-    if (n<0) {n=0};
+    if (n < 0) { n = 0; }
     slideIndex = n % slides.length;
 
     // hide ALL slides
-    for (i = 0; i < slides.length; i++) {
+    for (let i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
-      sessionStorage.setItem("slide"+i, 0);
+      sessionStorage.setItem("slide" + i, 0);
     }
 
     // unhide CURRENT slide
     slides[slideIndex].style.display = "block";
-    sessionStorage.setItem("slide"+slideIndex, 1);
+    sessionStorage.setItem("slide" + slideIndex, 1);
 
     // update < slide n of m >
-    document.getElementById("slide-status").textContent = "slide "+(slideIndex+1)+" of "+slides.length
+    document.getElementById("slide-status").textContent = "slide " + (slideIndex + 1) + " of " + slides.length
 
     // gray out the prev/next button if at begin/end
-    if (n == (slides.length-1)){
-        document.getElementById("prev-slide").style.color="black"
-        document.getElementById("next-slide").style.color="#bbb"
+    if (n == (slides.length - 1)) {
+      document.getElementById("prev-slide").style.color = "black"
+      document.getElementById("next-slide").style.color = "#bbb"
     } else if (n == 0) {
-        document.getElementById("prev-slide").style.color="#bbb"
-        document.getElementById("next-slide").style.color="black"
+      document.getElementById("prev-slide").style.color = "#bbb"
+      document.getElementById("next-slide").style.color = "black"
     } else {
-        document.getElementById("prev-slide").style.color="black"
-        document.getElementById("next-slide").style.color="black"
+      document.getElementById("prev-slide").style.color = "black"
+      document.getElementById("next-slide").style.color = "black"
     }
     // WARNING: *avoid* the following, see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role
     // document.getElementById("slideshow-container").ariaLabel = "slide "+(slideIndex+1)
@@ -191,110 +191,107 @@
 
   function nextSlide() {
     // check we're not on last slide
-    if ( sessionStorage.getItem("slide"+(slides.length-1)) < 1 ){
-       moveSlide(1);
+    if (sessionStorage.getItem("slide" + (slides.length - 1)) < 1) {
+      moveSlide(1);
     }
   }
 
   // arrow key event listeners, https://stackoverflow.com/a/9310900/1091649 
   document.onkeydown = checkKey;
+
   function checkKey(e) {
-       e = e || window.event;
-       if (e.keyCode == 38) {
-           // up arrow
-           // prevSlide();
-       }
-       else if (e.keyCode == 40) {
-           // down arrow
-  	   // nextSlide();
-       }
-       else if (e.keyCode == 37) {
-          // left arrow
-	  // check for 'all-slides-visible' mode, and adjust as necessary
-     	  if (sessionStorage.getItem("all-slides-visible")>0){
-  	    toggleAllSlides();
-	  }
-          prevSlide();
-       }
-       else if (e.keyCode == 39) {
-          // right arrow
-	  // check for 'all-slides-visible' mode, and adjust as necessary
-     	  if (sessionStorage.getItem("all-slides-visible")>0){
-  	    toggleAllSlides();
-	  }
-  	  nextSlide();
-       }
-       else if ( e.shiftKey && e.keyCode == 80 ) {
-	  // SHIFT+p
-  	  toggleAllSlides();
-       }
-   }
-   
-   // toggle all slides for printing (or other reasons)
-   function toggleAllSlides(){
-     let slidePosition;
-     let slideBorder;
-     let slideDisplay;
+    e = e || window.event;
+    if (e.keyCode == 38) {
+      // up arrow
+      // prevSlide();
+    } else if (e.keyCode == 40) {
+      // down arrow
+      // nextSlide();
+    } else if (e.keyCode == 37) {
+      // left arrow
+      // check for 'all-slides-visible' mode, and adjust as necessary
+      if (sessionStorage.getItem("all-slides-visible") > 0) {
+        toggleAllSlides();
+      }
+      prevSlide();
+    } else if (e.keyCode == 39) {
+      // right arrow
+      // check for 'all-slides-visible' mode, and adjust as necessary
+      if (sessionStorage.getItem("all-slides-visible") > 0) {
+        toggleAllSlides();
+      }
+      nextSlide();
+    } else if (e.shiftKey && e.keyCode == 80) {
+      // SHIFT+p
+      toggleAllSlides();
+    }
+  }
 
-     // toggle back to individual slide
-     if (sessionStorage.getItem("all-slides-visible")>0){
-     	sessionStorage.setItem("all-slides-visible", 0);
-	slidePosition = "absolute";
-	slideBorder = "none";
-	slideDisplay = "none";
+  // toggle all slides for printing (or other reasons)
+  function toggleAllSlides() {
+    let slidePosition;
+    let slideBorder;
+    let slideDisplay;
 
-        // toggle nav
-        document.getElementById("nav-outer").style.display = "block";
-        document.getElementById("slideshow-container").ariaLabel = null;
-     } else {
-        // toggle to all slides
-     	sessionStorage.setItem("all-slides-visible", 1);
-	slidePosition = "static";
-	slideBorder = "solid";
-	slideDisplay = "block";
+    // toggle back to individual slide
+    if (sessionStorage.getItem("all-slides-visible") > 0) {
+      sessionStorage.setItem("all-slides-visible", 0);
+      slidePosition = "absolute";
+      slideBorder = "none";
+      slideDisplay = "none";
 
-        // toggle nav
-        document.getElementById("nav-outer").style.display = "none";
-        document.getElementById("slideshow-container").ariaLabel = "All slides shown, useful for printing. Press SHIFT+P or LEFT or RIGHT to go individual slide";
-     }
+      // toggle nav
+      document.getElementById("nav-outer").style.display = "block";
+      document.getElementById("slideshow-container").ariaLabel = null;
+    } else {
+      // toggle to all slides
+      sessionStorage.setItem("all-slides-visible", 1);
+      slidePosition = "static";
+      slideBorder = "solid";
+      slideDisplay = "block";
 
-     // loop through slides, toggle CSS for printing/not printing
-     for (i = 0; i < slides.length; i++) {
-       slides[i].style.position = slidePosition;
-       slides[i].style.borderStyle = slideBorder;
-       slides[i].style.display = slideDisplay;
-     }
+      // toggle nav
+      document.getElementById("nav-outer").style.display = "none";
+      document.getElementById("slideshow-container").ariaLabel = "All slides shown, useful for printing. Press SHIFT+P or LEFT or RIGHT to go individual slide";
+    }
 
-     // finally, possibly toggle active slide back on
-     if (sessionStorage.getItem("all-slides-visible") <1){
-        for (i = 0; i < slides.length; i++) {
-          const currentslide = "slide"+i;
-          // toggle individual slide visibility back
-          if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0 ){
-        	showSlides(i);
-          }
+    // loop through slides, toggle CSS for printing/not printing
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.position = slidePosition;
+      slides[i].style.borderStyle = slideBorder;
+      slides[i].style.display = slideDisplay;
+    }
+
+    // finally, possibly toggle active slide back on
+    if (sessionStorage.getItem("all-slides-visible") < 1) {
+      for (let i = 0; i < slides.length; i++) {
+        const currentslide = "slide" + i;
+        // toggle individual slide visibility back
+        if (sessionStorage.length > 0 && sessionStorage.getItem(currentslide) > 0) {
+          showSlides(i);
         }
-     }
-   }
+      }
+    }
+  }
 
   // swipe slides, https://stackoverflow.com/a/56663695/1091649
   let touchstartX = 0
   let touchendX = 0
-  
+
   function checkDirection() {
-     if (touchendX < touchstartX && Math.abs( touchstartX - touchendX ) > 50){
-       nextSlide();
+    if (touchendX < touchstartX && Math.abs(touchstartX - touchendX) > 50) {
+      nextSlide();
     }
 
-     if (touchendX > touchstartX && Math.abs( touchstartX - touchendX ) > 50){
-       prevSlide();
+    if (touchendX > touchstartX && Math.abs(touchstartX - touchendX) > 50) {
+      prevSlide();
     }
   }
-  
+
   document.addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
   })
-  
+
   document.addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX
     checkDirection()
@@ -308,116 +305,129 @@
 #
 -->
 <style type="text/css">
- html, body {
+  html, body {
     height: 100%; /*https://stackoverflow.com/a/30694851/1091649*/
- }
- body, h1, h2, h3, h4, h5, h6  {
-   font-family: Arial, sans-serif;
- }
- /* https://stackoverflow.com/questions/9174669/best-practice-font-size-for-mobile */
+  }
+
+  body, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, sans-serif;
+  }
+
+  /* https://stackoverflow.com/questions/9174669/best-practice-font-size-for-mobile */
  h1 { font-size: 2.5rem; }
  h2 { font-size: 2.25rem; }
  h3 { font-size: 2rem; }
  h4 { font-size: 1.75rem; }
  h5 { font-size: 1.5rem; }
  h6 { font-size: 1.25rem; }
- p, li {
-   font-size: 2rem;
-   margin-bottom: 2rem; /*https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html*/
- }
-#slideshow-container {
-  position: relative;
-  width: 100%;
-  height:85%;
-}
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: none;
-  margin: 0px;
-  break-after: page;		/* for printing to pdf */
-  overflow: auto;		/* allow vertical scroll bar when needed */
-}
-#nav-outer {
-  display: block;
-  width: 100%;
-  height: 3%;
-  padding: 0px;
-}
-#nav-inner {
-  float: right;
-}
-#prev-slide, #next-slide {
-  padding: 16px;
-  font-weight: bold;
-  font-size: 30px;
-  cursor: pointer;
-}
-.related-resource {
-  border-top: 1px solid #bbb;
-}
-/* reference: https://webaim.org/techniques/hypertext/link_text */
-a:link {
-  	text-decoration: underline;
-}
-a:hover, a:focus{
-  	text-decoration: underline;
-	background-color:#ffffcc;
-	color: #BF1722;
-	border-top: 1px solid #bbb;
-	border-bottom: 1px solid #bbb;
-	border-radius: 4px;
-}
-/** 
-#
-# CSS Screen size adjustments
-#
-# https://stackoverflow.com/a/70727606/1091649
-#
-  **/
-@media only screen and (min-width:1000px) {
-   #slideshow-container {
-     position: relative;
-     width: 80%;
-     height:85%;
-   }
-   .slide {
-     margin: 20px;
-   }
-   #nav-outer {
-     width: 80%;
-   }
-}
+  p, li {
+    font-size: 2rem;
+    margin-bottom: 2rem; /*https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html*/
+  }
 
-@media (max-width: 480px) {
-    html {
-        font-size: 12px;
-    }
-}
+  #slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 85%;
+  }
 
-@media (min-width: 480px) {
-    html {
-        font-size: 13px;
-    }
-}
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    margin: 0px;
+    break-after: page; /* for printing to pdf */
+    overflow: auto; /* allow vertical scroll bar when needed */
+  }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 14px;
-    }
-}
+  #nav-outer {
+    display: block;
+    width: 100%;
+    height: 3%;
+    padding: 0px;
+  }
 
-@media (min-width: 992px) {
-    html {
-        font-size: 15px;
-    }
-}
+  #nav-inner {
+    float: right;
+  }
 
-@media (min-width: 1200px) {
-    html {
-        font-size: 16px;
+  #prev-slide, #next-slide {
+    padding: 16px;
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .related-resource {
+    border-top: 1px solid #bbb;
+  }
+
+  /* reference: https://webaim.org/techniques/hypertext/link_text */
+  a:link {
+    text-decoration: underline;
+  }
+
+  a:hover, a:focus {
+    text-decoration: underline;
+    background-color: #ffffcc;
+    color: #BF1722;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-radius: 4px;
+  }
+
+  /** 
+  #
+  # CSS Screen size adjustments
+  #
+  # https://stackoverflow.com/a/70727606/1091649
+  #
+    **/
+  @media only screen and (min-width: 1000px) {
+    #slideshow-container {
+      position: relative;
+      width: 80%;
+      height: 85%;
     }
-}
+
+    .slide {
+      margin: 20px;
+    }
+
+    #nav-outer {
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
+  @media (min-width: 480px) {
+    html {
+      font-size: 13px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    html {
+      font-size: 16px;
+    }
+  }
 </style>
 </html>
