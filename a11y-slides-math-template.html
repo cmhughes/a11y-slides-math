@@ -150,11 +150,11 @@
   }
 
   function showSlides(n) {
-    if (n<0) {n=0};
+    if (n<0) {n=0;}
     slideIndex = n % slides.length;
 
     // hide ALL slides
-    for (i = 0; i < slides.length; i++) {
+    for (let i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
       sessionStorage.setItem("slide"+i, 0);
     }
@@ -259,7 +259,7 @@
      }
 
      // loop through slides, toggle CSS for printing/not printing
-     for (i = 0; i < slides.length; i++) {
+     for (let i = 0; i < slides.length; i++) {
        slides[i].style.position = slidePosition;
        slides[i].style.borderStyle = slideBorder;
        slides[i].style.display = slideDisplay;
@@ -267,7 +267,7 @@
 
      // finally, possibly toggle active slide back on
      if (sessionStorage.getItem("all-slides-visible") <1){
-        for (i = 0; i < slides.length; i++) {
+        for (let i = 0; i < slides.length; i++) {
           const currentslide = "slide"+i;
           // toggle individual slide visibility back
           if (sessionStorage.length >0 && sessionStorage.getItem(currentslide)>0 ){
