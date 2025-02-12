@@ -12,7 +12,7 @@ You can navigate through the slides using the LEFT and RIGHT arrow keys.
 See [examples](https://cmhughes.github.io/a11y-slides-math/#examples) for further examples.
 
 ## version
-V0.6, 2024-11-28
+V0.7, 2025-02-12
 
 ## testing with NVDA
 To test `a11y-slides-math-template.html` with [NVDA](https://www.nvaccess.org/download/), use the following steps:

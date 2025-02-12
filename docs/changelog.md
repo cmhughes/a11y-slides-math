@@ -1,5 +1,8 @@
 # changelog.md
 
+## V0.7, February 12, 2025
+Fixed minor Javascript issues, code clean up, example 6. Thanks to @jonpage999 for their work.
+
 ## V0.6, November 28, 2024
 Meta tag tweaks, CSS small tweak.
 
