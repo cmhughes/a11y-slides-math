@@ -337,3 +337,54 @@ examples:
 
              // finally, append <ul> to <div id="list-of-slides">
              document.getElementById("list-of-slides").append(ul_list_of_slides);
+  -
+   #
+   # example 6
+   #
+   filename: 6-example.html
+   description: "example 6: side by side div boxes, which wrap"
+   slides:
+     -
+      elements:
+        - h1: side by side div boxes
+        - p: |-
+            try adjusting the screen width, 
+            you should see the div boxes below 
+            wrap onto new lines as the screen becomes narrower
+        - div: ''
+          attrib: 
+            class: "cmh-container"
+          elements:
+            - div: ''
+              attrib: 
+                class: "cmh-fixed"
+              elements:
+                - p: first div box
+            - div: ''
+              attrib: 
+                class: "cmh-fixed"
+              elements:
+                - p: second div box
+            - div: ''
+              attrib: 
+                class: "cmh-fixed"
+              elements:
+                - p: third div box
+   replacements:
+     -
+      this: |-
+        .related-resource {
+            border-top: 1px solid #bbb;
+          }
+      that: |-
+        .related-resource {
+          border-top: 1px solid #bbb;
+        }
+        /* reference: https://stackoverflow.com/a/24292602/1091649 */
+        .cmh-container{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .cmh-fixed{
+            width: 400px;
+        }

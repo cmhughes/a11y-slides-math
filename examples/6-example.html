@@ -2,7 +2,7 @@
 <!--
 #
 # a11y-slides-math-template.html
-# example 2: demonstrate example numbers
+# example 6: side by side div boxes, which wrap
 #
 -->
 <html>
@@ -20,21 +20,21 @@
   <body onload="initiateSlides()">
     <div id="slideshow-container">
       <div class="slide">
-        <h1>my first slide</h1>
-        <h2 class="example">example</h2>
-        <p>my example text goes here $y=x^3+5x^2-7$</p>
-      </div>
-      <div class="slide">
-        <h1>my second slide</h1>
-        <h2 class="example">example</h2>
-        <p>my other example text goes here $y=\sin(x^3+5)+\tan x$</p>
-        <h2 class="example">example</h2>
-        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
-      </div>
-      <div class="slide">
-        <h1>my third slide</h1>
-        <h2 class="example">example</h2>
-        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
+        <h1>side by side div boxes</h1>
+        <p>try adjusting the screen width, 
+you should see the div boxes below 
+wrap onto new lines as the screen becomes narrower</p>
+        <div class="cmh-container">
+          <div class="cmh-fixed">
+            <p>first div box</p>
+          </div>
+          <div class="cmh-fixed">
+            <p>second div box</p>
+          </div>
+          <div class="cmh-fixed">
+            <p>third div box</p>
+          </div>
+        </div>
       </div>
     </div>
     <div id="nav-outer">
@@ -138,14 +138,6 @@
     // ARIA    *vital* to announce H1 on change of slide, see
     //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
     document.getElementById("slideshow-container").ariaLive = "polite"
-
-     //
-     // *new* for example 2 number the <h2> elements
-     //
-     // algorithmically number h2 for each slide
-     for (let i=0; i < document.getElementsByClassName("example").length; i++){
-         document.getElementsByClassName("example")[i].textContent = document.getElementsByClassName("example")[i].textContent +" "+ (i+1)
-     }
   }
 
   function showSlides(n) {
@@ -359,8 +351,16 @@
   }
 
   .related-resource {
-    border-top: 1px solid #bbb;
-  }
+  border-top: 1px solid #bbb;
+}
+/* reference: https://stackoverflow.com/a/24292602/1091649 */
+.cmh-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.cmh-fixed{
+    width: 400px;
+}
 
   /* reference: https://webaim.org/techniques/hypertext/link_text */
   a:link {

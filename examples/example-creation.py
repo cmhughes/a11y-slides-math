@@ -2,6 +2,37 @@
 import shutil, argparse, re, yaml
 import lxml.etree as ET
 
+def add_elements(parent, thing):
+
+    if "elements" not in thing:
+        return
+
+    for indv_element in thing["elements"]:
+        attrib = {}
+
+        # if there's any attributes...
+        if 'attrib' in indv_element:
+            attrib = indv_element.pop('attrib')
+
+        # create the <elements>
+        for key in indv_element:
+
+            if key == "elements":
+               continue
+
+            newElement = ET.Element(key)
+            try:
+               newElement.text = indv_element[key]
+            except:
+               newElement.text = ''
+
+            # add attributes, if appropriate
+            for indv_attrib in attrib:
+                newElement.attrib[indv_attrib] = attrib[indv_attrib] 
+
+            add_elements(newElement,indv_element)
+            parent.append(newElement)
+
 with open('examples.yaml', encoding='utf-8') as stream:
     example_yaml = yaml.safe_load(stream)
 
@@ -82,23 +113,7 @@ for example in example_yaml["examples"]:
        for slide in example["slides"]:
            newSlide = ET.Element('div')
            newSlide.attrib["class"] ="slide"
-           for indv_element in slide["elements"]:
-               attrib = {}
-
-               # if there's any attributes...
-               if 'attrib' in indv_element:
-                   attrib = indv_element.pop('attrib')
-
-               # create the <elements>
-               for key in indv_element:
-                   newElement = ET.Element(key)
-                   newElement.text = indv_element[key]
-
-                   # add attributes, if appropriate
-                   for indv_attrib in attrib:
-                       newElement.attrib[indv_attrib] = attrib[indv_attrib] 
-
-                   newSlide.append(newElement)
+           add_elements(newSlide, slide)
            slideshowContainer.append(newSlide)
 
     # beautify the HTML
