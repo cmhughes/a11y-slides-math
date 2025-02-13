@@ -117,7 +117,11 @@ for example in example_yaml["examples"]:
            slideshowContainer.append(newSlide)
 
     # beautify the HTML
-    ET.indent(tree,space='  ', level=0)
+    try:
+       if example["beautify"]:
+          ET.indent(tree,space='  ', level=0)
+    except:
+       ET.indent(tree,space='  ', level=0)
 
     # write HTML back to file
     tree.write(exampleFileName, pretty_print=True)

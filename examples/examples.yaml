@@ -388,3 +388,102 @@ examples:
         .cmh-fixed{
             width: 400px;
         }
+  -
+   #
+   # example 7
+   #
+   filename: 7-example.html
+   beautify: 0
+   description: "example 7: code blocks, highlighted with highlight.js"
+   slides:
+     -
+      elements:
+        - h1: code blocks highlighted
+        - p:
+          elements:
+            - a: highlight.js
+              attrib: 
+                 href: "https://github.com/highlightjs/highlight.js"
+                 target: "_blank"
+        - pre:
+          elements:
+           - code: |-
+               \begin{pmatrix}
+               1 & 2 \\
+               3 & 4
+               \end{matrix}
+   replacements:
+     -
+      this: |-
+        <!--
+        # 
+        # ...............................................
+        # Javascript section
+        # ...............................................
+        #
+        -->
+      that: |-
+        <!--
+        # 
+        # ...............................................
+        # Javascript section
+        # ...............................................
+        #
+        -->
+        <!-- 
+        # 
+        # example 7 showing highlight.js 
+        #
+        # see: https://github.com/highlightjs/highlight.js
+        #
+        # -->
+        <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/default.min.css" />
+        <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+        <!-- and it's easy to individually load additional languages -->
+        <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/languages/latex.min.js"></script>
+        </script>
+     -
+      this: |-
+        document.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            checkDirection();
+          })
+      that: |-
+        document.addEventListener('touchend', e => {
+          touchendX = e.changedTouches[0].screenX;
+          checkDirection();
+        })
+        //
+        // *new* for example 7
+        //
+        // highlight code blocks
+        //
+        // reference: https://codepen.io/nkrisc/pen/XbYoBx
+
+        codeblocks = document.querySelectorAll('code');
+
+        for(i = 0; i < codeblocks.length; i++){
+          var code = codeblocks[i].innerText;
+          codeblocks[i].innerHTML = hljs.highlight(code,{ language: 'latex'}).value;
+        }
+     -
+      this: |-
+        @media (min-width: 1200px) {
+            html {
+              font-size: 16px;
+            }
+          }
+      that: |-
+        @media (min-width: 1200px) {
+          html {
+            font-size: 16px;
+          }
+        }
+        code{
+         font-size:1.5rem;
+        }
+        pre{
+         border: 2px solid gray;
+         background-color: lightgray;
+         width: 40%;
+        }

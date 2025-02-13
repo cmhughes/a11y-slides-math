@@ -2,62 +2,35 @@
 <!--
 #
 # a11y-slides-math-template.html
-# example 4: demonstrate table of contents
+# example 7: code blocks, highlighted with highlight.js
 #
 -->
 <html>
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="keywords" content="a11y, accessibility, slides, HTML"/>
-    <meta name="author" content="Your name here"/>
-    <title>Your title goes here</title>
-  </head>
-  <!--
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="keywords" content="a11y, accessibility, slides, HTML"/>
+  <meta name="author" content="Your name here"/>
+  <title>Your title goes here</title>
+</head>
+<!--
 #
 # DOCUMENT body
 #
 -->
-  <body onload="initiateSlides()">
-    <div id="slideshow-container">
-      <div class="slide">
-        <h1>we will have a table of contents</h1>
-        <p>the next slide will automatically create a list of slides, with hyperlinks</p>
-      </div>
-      <div class="slide">
-        <h1>List of slides</h1>
-        <div id="list-of-slides"></div>
-      </div>
-      <div class="slide">
-        <h1 class="slide-heading">my first slide</h1>
-        <h2 class="example">example</h2>
-        <p>my other example text goes here $y=\sin(x^3+5)+\tan x$</p>
-        <h2 class="theorem">theorem</h2>
-        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
-      </div>
-      <div class="slide">
-        <h1 class="slide-heading">my second slide</h1>
-        <h2 class="example">example</h2>
-        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
-      </div>
-      <div class="slide">
-        <h1 class="slide-heading">my third slide</h1>
-        <h2 class="theorem">theorem</h2>
-        <p>yet more text \[\frac{\mathrm{d}y}{\mathrm{d}x}=\sec x\]</p>
-        <h2 class="example">example</h2>
-        <p>More text and \[\begin{array}{cc}1 &amp; 2\\3 &amp; 4\end{array}\]</p>
-      </div>
-    </div>
-    <div id="nav-outer">
-      <div id="nav-inner">
-        <p>
-          <a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a>
-          <span id="slide-status">slide</span>
-          <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a>
-        </p>
-      </div>
-    </div>
-  </body>
-  <!--
+<body onload="initiateSlides()">
+<div id="slideshow-container">
+  <div class="slide"><h1>code blocks highlighted</h1><p><a href="https://github.com/highlightjs/highlight.js" target="_blank">highlight.js</a></p><pre><code>\begin{pmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{matrix}</code></pre></div></div>
+<div id="nav-outer">
+  <div id="nav-inner">
+    <p><a id="prev-slide" onclick="prevSlide()" aria-label="previous">&#10094;</a> <span id="slide-status">slide</span> <a id="next-slide" onclick="nextSlide()" aria-label="next">&#10095;</a></p>
+  </div>
+</div>
+</body>
+
+<!--
 # ===========================================================
 # 
 # a11y-slides-math JS and CSS settings
@@ -67,7 +40,8 @@
 # ===========================================================
 #
 -->
-  <!--
+
+<!--
 # ...............................................
 # MathJax config
 #	   https://docs.mathjax.org/en/latest/options/menu.html
@@ -119,6 +93,18 @@
 # ...............................................
 #
 -->
+<!-- 
+# 
+# example 7 showing highlight.js 
+#
+# see: https://github.com/highlightjs/highlight.js
+#
+# -->
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/default.min.css" />
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/languages/latex.min.js"></script>
+</script>
 <script type="text/javascript">
   let slideIndex = 0;
   const slides = document.getElementsByClassName("slide");
@@ -148,48 +134,6 @@
     // ARIA    *vital* to announce H1 on change of slide, see
     //		https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
     document.getElementById("slideshow-container").ariaLive = "polite"
-
-     //
-     // *new* for example 4 list of slides
-     //
-     // algorithmically create list of slides
-     //
-
-     // create unordered list
-     var ul_list_of_slides = document.createElement('ul');
-
-     // get the slide headings
-     var headings_for_slides = document.getElementsByClassName("slide-heading")
-
-     // get all the slides
-     var all_slides = document.getElementsByClassName("slide");
-
-     // loop through the slide headings
-     for (let i=0; i < headings_for_slides.length; i++){
-
-         // create <li> element
-         var li_for_list_of_slides = document.createElement('li');
-
-         // create <a> element
-         var a_for_li = document.createElement('a');
-         a_for_li.textContent = headings_for_slides[i].textContent;
-
-         // set up the href attribute for the link
-         for (let j=0; j < all_slides.length; j++ ){
-            if( all_slides[j].contains(headings_for_slides[i]) ){
-              a_for_li.setAttribute("href","javascript:showSlides("+j+")");
-            }
-         }
-
-         // append <a> to <li>
-         li_for_list_of_slides.append(a_for_li);
-
-         // append <li> to <ul>
-         ul_list_of_slides.append(li_for_list_of_slides);
-     }
-
-     // finally, append <ul> to <div id="list-of-slides">
-     document.getElementById("list-of-slides").append(ul_list_of_slides);
   }
 
   function showSlides(n) {
@@ -336,9 +280,22 @@
   })
 
   document.addEventListener('touchend', e => {
-    touchendX = e.changedTouches[0].screenX;
-    checkDirection();
-  })
+  touchendX = e.changedTouches[0].screenX;
+  checkDirection();
+})
+//
+// *new* for example 7
+//
+// highlight code blocks
+//
+// reference: https://codepen.io/nkrisc/pen/XbYoBx
+
+codeblocks = document.querySelectorAll('code');
+
+for(i = 0; i < codeblocks.length; i++){
+  var code = codeblocks[i].innerText;
+  codeblocks[i].innerHTML = hljs.highlight(code,{ language: 'latex'}).value;
+}
 </script>
 <!--
 # 
@@ -347,7 +304,7 @@
 # ...............................................
 #
 -->
-  <style type="text/css">
+<style type="text/css">
   html, body {
     height: 100%; /*https://stackoverflow.com/a/30694851/1091649*/
   }
@@ -468,9 +425,17 @@
   }
 
   @media (min-width: 1200px) {
-    html {
-      font-size: 16px;
-    }
+  html {
+    font-size: 16px;
   }
+}
+code{
+ font-size:1.5rem;
+}
+pre{
+ border: 2px solid gray;
+ background-color: lightgray;
+ width: 40%;
+}
 </style>
 </html>

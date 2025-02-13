@@ -105,6 +105,7 @@ You can find further examples in the following files:
 * [4-example.html](https://cmhughes.github.io/a11y-slides-math/examples/4-example.html), automatically generate list of slides
 * [5-example.html](https://cmhughes.github.io/a11y-slides-math/examples/5-example.html), automatically generate list of slides, automatically number slide headings
 * [6-example.html](https://cmhughes.github.io/a11y-slides-math/examples/6-example.html), side-by-side div boxes that wrap onto next line with screen width adjustment
+* [7-example.html](https://cmhughes.github.io/a11y-slides-math/examples/7-example.html), codeblocks highlighted using [highlight.js](https://github.com/highlightjs/highlight.js)
 
 See the [examples](https://github.com/cmhughes/a11y-slides-math/tree/main/examples) directory to download the files for the above.
 
