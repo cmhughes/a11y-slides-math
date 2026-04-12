@@ -30,7 +30,7 @@ jobs:
           mv cmh01 a11y-slides-math-release.md
           cat a11y-slides-math-release.md
       - name: a11y-slides-math release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body_path: a11y-slides-math-release.md
           files: |
