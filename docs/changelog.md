@@ -1,5 +1,8 @@
 # changelog.md
 
+## V0.8, April 14, 2026
+MathJax V4 supported.
+
 ## V0.7, February 12, 2025
 Fixed minor Javascript issues, code clean up, example 6. Thanks to @jonpage999 for their work.
 

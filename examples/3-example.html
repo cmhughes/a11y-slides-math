@@ -68,7 +68,7 @@
 # ...............................................
 # MathJax config
 #	   https://docs.mathjax.org/en/latest/options/menu.html
-#   	   http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn 
+#      http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn 
 # ...............................................
 #
 -->
@@ -77,38 +77,43 @@
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']]
     },
+	// https://docs.mathjax.org/en/latest/options/accessibility.html#explorer-extension-options
     options: {
-      enableMenu: true,          // set to false to disable the menu
-      menuOptions: {
-        settings: {
-          texHints: true,        // put TeX-related attributes on MathML
-          semantics: false,      // put original format in semantic tag in MathML
-          zoom: 'Click',         // or 'Click' or 'DoubleClick' as zoom trigger
-          zscale: '200%',        // zoom scaling factor
-          renderer: 'CHTML',     // or 'SVG'
-          alt: false,            // true if ALT required for zooming
-          cmd: false,            // true if CMD required for zooming
-          ctrl: false,           // true if CTRL required for zooming
-          shift: false,          // true if SHIFT required for zooming
-          scale: 1,              // scaling factor for all math
-          inTabOrder: true,      // true if tabbing includes math
-          assistiveMml: true,    // true if hidden assistive MathML should be generated for screen readers
-          collapsible: false,    // true if complex math should be collapsible
-          explorer: true,       // true if the expression explorer should be active
-        },
-        annotationTypes: {
-          TeX: ['TeX', 'LaTeX', 'application/x-tex'],
-          StarMath: ['StarMath 5.0'],
-          Maple: ['Maple'],
-          ContentMathML: ['MathML-Content', 'application/mathml-content+xml'],
-          OpenMath: ['OpenMath']
-        }
-      }
-    }
+		a11y: {
+		  speech: true,                      // switch on speech output
+		  braille: false,                    // switch on Braille output
+		  subtitles: true,                   // show speech as a subtitle
+		  viewBraille: false,                // display Braille output as subtitles
+		  help: true,                        // include "press h for help" messages on focus
+		  roleDescription: 'math',           // the role description to use for math expressions
+		  voicing: false,                    // switch on speech output
+
+		  backgroundColor: 'Blue',           // color for background of selected sub-expression
+		  //backgroundOpacity: .2,             // opacity for background of selected sub-expression
+		  foregroundColor: 'Black',          // color to use for text of selected sub-expression
+		  //foregroundOpacity: 0,              // opacity for text of selected sub-expression
+
+		  highlight: 'None',                 // type of highlighting for collapsible sub-expressions
+		  flame: false,                      // color collapsible sub-expressions
+		  hover: false,                      // show collapsible sub-expression on mouse hovering
+
+		  treeColoring: false,               // tree color expression
+
+		  magnification: 'None',             // type of magnification
+		  magnify: '400%',                   // percentage of magnification of zoomed expressions
+		  keyMagnifier: false,               // switch on magnification via key exploration
+		  mouseMagnifier: false,             // switch on magnification via mouse hovering
+		  align: 'top',                      // placement of magnified expression
+
+		  infoType: false,                   // show semantic type on mouse hovering
+		  infoRole: false,                   // show semantic role on mouse hovering
+		  infoPrefix: false,                 // show speech prefixes on mouse hovering
+		}
+  }
   };
 </script>
-<script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
 <!--
 # 
 # ...............................................

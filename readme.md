@@ -12,7 +12,7 @@ You can navigate through the slides using the LEFT and RIGHT arrow keys.
 See [examples](https://cmhughes.github.io/a11y-slides-math/#examples) for further examples.
 
 ## version
-V0.7, 2025-02-12
+V0.8, 2026-04-14
 
 ## testing with NVDA
 To test `a11y-slides-math-template.html` with [NVDA](https://www.nvaccess.org/download/), use the following steps:
@@ -24,12 +24,13 @@ To test `a11y-slides-math-template.html` with [NVDA](https://www.nvaccess.org/do
 5. when you want to interrogate a slide, press NVDA+SPACE to enter <i>focus</i> mode, and then use the UP and DOWN arrows to interrogate the details of the slide;
 6. on slide 3 of `a11y-slides-math-template.html` you will encounter some symbolic mathematical content:
     * when you reach the mathematical content, press ENTER;
-    * now press SHIFT+SPACE which should allow you to interrogate this mathematical content at different levels using the arrow keys via the MathJax explorer extension; press SPACE to have NVDA announce your current level;
+    * you can interrogate this mathematical content at different levels using the arrow keys; press D to have NVDA announce your current level (you start at level 0);
     * when you're done interrogating the mathematical content, press ESC, and then NVDA+CTRL+SPACE, which should 
       return you to the next part of the slide;
 7. if you want to exit/quit NVDA, press NVDA+Q.
 
-For reference, see the [NVDA keyboard shortcuts](https://www.nvaccess.org/files/nvdaTracAttachments/455/keycommands%20with%20laptop%20keyboard%20layout.html).
+For reference, see the [NVDA keyboard shortcuts](https://download.nvaccess.org/documentation/mk/keyCommands.html)
+and also [MathJax Advanced Keys](https://docs.mathjax.org/en/latest/basic/explorer-commands.html#advanced-keys).
 
 ## assumptions about users of this
 I assume the following two assumptions about users of this template:
